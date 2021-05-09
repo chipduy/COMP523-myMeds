@@ -1,5 +1,6 @@
 .med-page-content {
     margin: auto;
+<<<<<<< HEAD
     padding-left: 100px;
 }
 
@@ -9,4 +10,7 @@
 
 .rounded-button {
     border-radius: 20px;
+=======
+    padding: 10px
+>>>>>>> main
 }

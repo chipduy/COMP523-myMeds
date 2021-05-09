@@ -15,19 +15,28 @@ export default function Login() {
   const passwordRef = useRef()
 
   const { login } = useAuth()
+<<<<<<< HEAD
 
+=======
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+>>>>>>> main
   const history = useHistory()
 
   async function handleSubmit(e) {
     e.preventDefault()
 
     try {
-      setAlert("")
+      setError("")
       setLoading(true)
       await login(email, password)
       history.goBack()
     } catch {
+<<<<<<< HEAD
       setAlert("Invalid email or password")
+=======
+      setError("Failed to log in")
+>>>>>>> main
     }
     setLoading(false)
   }
@@ -40,6 +49,7 @@ export default function Login() {
       <Card data-testid='login' className="sign-up text-left mt-5 mx-auto border-0" bg="light"> 
         <Card.Body>
           <h2 className="text-center mb-4">Log In</h2>
+<<<<<<< HEAD
 
           <hr/>
           <p data-testid="login-help-text" className="text-center">
@@ -52,6 +62,11 @@ export default function Login() {
           
           <Form data-testid="login-form" onSubmit={handleSubmit}>
             <Form.Group controlId="email">
+=======
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group id="email">
+>>>>>>> main
               <Form.Label>Email</Form.Label>
               <Form.Control 
                 type="email" 

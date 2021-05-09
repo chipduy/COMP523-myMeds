@@ -6,12 +6,18 @@ import { Button } from "react-bootstrap"
 import NavbarContainer from '../components/NavbarContainer'
 import Footer from '../components/Footer'
 import ReviewForm from 'components/ReviewForm';
+<<<<<<< HEAD
 import Reviews from '../components/Reviews';
 import '../css/MedPage.css';
 import Rating from '@material-ui/lab/Rating';
 import Alert from '@material-ui/lab/Alert';
 import { roundTenths } from '../helpers/formatting.jsx';
 import { ReactComponent as CapsuleIcon } from '../img/capsule.svg';
+=======
+import PrivateRoute from "../components/PrivateRoute"
+import '../css/Home.css';
+import '../css/MedPage.css';
+>>>>>>> main
 import { v4 as uuidv4 } from 'uuid';
 
 /* MedPage component takes in a string "medId" as a prop and renders the page containing the 
@@ -24,20 +30,33 @@ function MedPage ({ medId }) {
   const [brandName, setBrandName] = useState("Brand Name");
   const [indication, setIndication] = useState("Med Type");
   const [reviewsArray, setReviewsArray] = useState([]);
+<<<<<<< HEAD
   const [averageOverallRating, setAverageOverallRating] = useState(0);
   const [indexRating, setindexRating] = useState(0);
   const [noReviews, setNoReviews] = useState(true);
   const [description, setDescription] = useState("");
+=======
+  const [showReviewForm, setShowReviewForm] = useState(false)
+  
+  const onClick = () => {
+    if (showReviewForm) {
+      setShowReviewForm(false);
+    } else { 
+      setShowReviewForm(true)
+    }
+  }
+>>>>>>> main
 
   useEffect(() => {
     async function getData() {
-      // getting data for this page's medicine
+      // You can await here
       const doc = await db.collection('drug').doc(medId).get();
       setGenericName(doc.data().genericName);
       setBrandName(doc.data().brandName);
       setIndication(doc.data().indication);
       setDescription(doc.data().description);
 
+<<<<<<< HEAD
       // getting all the reviews for this page's medicine 
       const reviewsSnapshot = await db.collection("drug").doc(medId).collection("Review").orderBy('createdAt', 'desc').get();
       setReviewsArray([]);
@@ -64,16 +83,37 @@ function MedPage ({ medId }) {
         ratingAverage = roundTenths(ratingAverage, 2);
         setAverageOverallRating(ratingAverage)
       }
+=======
+
+      const reviewsSnapshot = await db.collection("drug").doc(medId).collection("Review").get();
+      setReviewsArray([]);
+      reviewsSnapshot.forEach((doc) => {
+          setReviewsArray(reviewsArray => 
+            [...reviewsArray, ...[{user: doc.id, rating: doc.data().rating, review: doc.data().review, symptom: doc.data().symptom}]]
+          );
+        })
+>>>>>>> main
     }
     getData();
   }, [medId]); 
 
+<<<<<<< HEAD
   // pushing the average rating that was just calculated to the database
   db.collection("drug").doc(medId).set({
     rating:averageOverallRating,
     reviews:indexRating,
   }, 
   {merge: true})
+=======
+    // functions to standardize query's caseing
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.substring(1, str.length).toLowerCase();
+    }
+
+    function titleCase(str) {
+      return str.replace(/[^\ \/\-\_]+/g, capitalize);
+    }
+>>>>>>> main
 
     return (
       <div data-testid='medpage' className="med-page-container">
@@ -85,6 +125,7 @@ function MedPage ({ medId }) {
           <Button onClick={e => {history.replace("/")}} className="my-3" variant="primary" > Back to Home</Button>
         </div>
            
+<<<<<<< HEAD
         <div className="med-page-content text-left w-75 bg-white">
             <h1 className="display-4 show-whitespace">
               <CapsuleIcon width="55" height="55"/> {genericName}
@@ -122,6 +163,21 @@ function MedPage ({ medId }) {
               <ul className="list-unstyled">
                 {reviewsArray !== [] && reviewsArray.map(review => <Reviews key={uuidv4()} review={ review } />)}
               </ul>
+=======
+        <div className="med-page-content text-center">
+            <h1>{titleCase(genericName)}</h1> 
+            <br></br>
+            <strong>Brand Names:</strong> {brandName}
+            <br></br>
+            <strong>Medicine Type:</strong> {indication}
+            <br></br>
+            <div className="med-page-review-form-container">
+              <Button onClick={onClick} className="mt-3"> Write a Review </Button>
+              { showReviewForm ? <PrivateRoute component={ReviewForm}></PrivateRoute> : null }
+            </div>
+            <div className="align-items-center">
+              {reviewsArray !== [] && reviewsArray.map(med => <p>{med.user}<br></br>{med.review}</p>)}
+>>>>>>> main
             </div>
           </div>
 

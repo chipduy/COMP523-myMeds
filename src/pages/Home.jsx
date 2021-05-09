@@ -47,7 +47,11 @@ const Home = () => {
           if (reviewsAmt === undefined) { reviewsAmt = 0 };
 
           setResultsArray(resultsArray => 
+<<<<<<< HEAD
             [...resultsArray, ...[{medId: doc.id, genericName: doc.data().genericName, brandName: doc.data().brandName, indication: doc.data().indication, rating:rating, reviewsAmt: reviewsAmt}]]
+=======
+            [...resultsArray, ...[{genericName: titleCase(doc.data().genericName), brandName: doc.data().brandName, indication: doc.data().indication}]]
+>>>>>>> main
           );
         })
         setAlertMessage("")

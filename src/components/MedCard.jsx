@@ -1,8 +1,12 @@
 import React, {} from 'react';
+import '../css/Header.css';
 import {Button, Card} from "react-bootstrap"
+<<<<<<< HEAD
 import { useHistory } from "react-router-dom";
 import Rating from '@material-ui/lab/Rating';
 import Alert from '@material-ui/lab/Alert';
+=======
+>>>>>>> main
 
 /* MedCard component reads in a "med" object as prop 
   (passed on to it from Home.jsx) and renders a card to be displayed as a search result */
@@ -13,6 +17,7 @@ function MedCard ({ med }) {
     const genericName = med.genericName;
     const brandName = med.brandName;
     const indication = med.indication;
+<<<<<<< HEAD
     const rating = med.rating;
     const reviewsAmt = med.reviewsAmt;
 
@@ -20,6 +25,11 @@ function MedCard ({ med }) {
 
     return (<div data-testid='medcard'>
           <Card bg="light" className="text-center my-3" border="primary" style={{ width: '18rem' }}>
+=======
+
+    return (<div>
+          <Card className="text-center my-3" border="primary" style={{ width: '18rem' }}>
+>>>>>>> main
             <Card.Body>
               {(reviewsAmt > 0) && (rating <= 2) && <Alert severity="warning" color="error">This medication is red flagged for low reviews</Alert>}
               <Card.Title data-testid='title' className="mt-3"><strong>{genericName}</strong></Card.Title>
@@ -35,7 +45,11 @@ function MedCard ({ med }) {
               <Card.Text data-testid='medicinetype'>
                 <strong>Medicine Type:</strong> {indication}
               </Card.Text>
+<<<<<<< HEAD
               <Button data-testid='button' onClick={e => { history.push("home/med/"+ medId); }} variant="primary">View Reviews & More Info</Button>
+=======
+              <Button variant="primary">View Reviews & More Info</Button>
+>>>>>>> main
             </Card.Body>
           </Card> 
         </div>)}
